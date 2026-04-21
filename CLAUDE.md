@@ -10,75 +10,66 @@ Contrato: COLMEX-LPN-ADQ-11-25. PM: Alan Cerón Cardonne.
 Todos los cambios de contenido van ahí. Nunca edites componentes React
 (`App.jsx`, `ui.jsx`) a menos que se pida explícitamente un cambio de UI.
 
-## Estructura del proyecto
+## Flujo completo de trabajo
+
+Cuando Alan diga "actualiza el dashboard" o "publica", sigue estos pasos:
+
+### 1. Validar antes de publicar
+Siempre corre esta validación antes de hacer commit:
+```bash
+node scripts/validate.js
 ```
-src/
-├── data.js          ← ÚNICO archivo que se edita para actualizar datos
-├── App.jsx          ← componente principal (no tocar)
-├── index.css        ← estilos (no tocar)
-├── logo.png         ← logo Censys transparente (no tocar)
-└── components/
-    └── ui.jsx       ← componentes reutilizables (no tocar)
-.github/
-└── workflows/
-    └── deploy.yml   ← CI/CD automático en cada push a main
-scripts/
-└── update_from_minuta.py ← script para actualizar desde minutas
+Si hay errores, corrígelos en `src/data.js` y vuelve a validar.
+Si pasa, continúa al paso 2.
+
+### 2. Publicar a GitHub
+```bash
+git add src/data.js
+git commit -m "dashboard: actualización [FECHA HOY]"
+git push origin main
 ```
+GitHub Actions compilará y publicará automáticamente en ~2 minutos.
+URL: https://maxceca.github.io/colmex
+
+### 3. Confirmar
+Después del push dile a Alan:
+"✅ Publicado. En ~2 minutos estará en https://maxceca.github.io/colmex"
 
 ## Comandos disponibles
 ```bash
-npm start          # desarrollo local en localhost:3000
-npm run build      # compilar para producción
-npm run deploy     # build + push a gh-pages (manual)
-git add . && git commit -m "update" && git push  # dispara CI/CD automático
+npm start                    # desarrollo local
+npm run build                # compilar
+node scripts/validate.js     # validar datos antes de publicar
+python scripts/update_from_minuta.py minuta.txt  # actualizar desde minuta
+git add src/data.js && git commit -m "msg" && git push  # publicar
 ```
 
-## Cómo actualizar el dashboard
+## Qué puedes pedirle a Claude Code
 
-### Desde una minuta o transcript (lo más común)
-Pégame el texto de la minuta o transcript y dime:
-> "Actualiza el dashboard con esta minuta"
-
-Yo extraeré los datos relevantes y actualizaré `src/data.js` automáticamente.
-
-### Cambios puntuales
-Ejemplos de lo que puedes pedirme:
+- "Actualiza el dashboard con esta minuta" → pega el texto
 - "El avance de ISE subió a 95%"
 - "Agrega este riesgo: [descripción]"
-- "La próxima sesión es el miércoles 29 a las 11"
 - "Marca el hito de Site Survey como completado"
 - "Cambia la fecha de actualización a hoy"
-- "Publica los cambios" → corro `git add . && git commit && git push`
+- "Valida y publica"
+- "Publica los cambios"
 
-### Publicar a GitHub Pages
-Después de cualquier cambio, solo di:
-> "Publica" o "Haz deploy"
+## Esquema de src/data.js
 
-Yo corro:
-```bash
-git add src/data.js
-git commit -m "dashboard: update [fecha]"
-git push origin main
-```
-GitHub Actions compila y publica automáticamente en ~2 minutos.
-
-## Esquema de data.js (referencia rápida)
-
-### proyecto — datos generales
+### proyecto
 ```js
 export const proyecto = {
   nombre, id, contrato, pm, email, actualizado, sesion
 }
 ```
 
-### kpis — 4 tarjetas numéricas
+### kpis — 4 tarjetas
 ```js
 // color: "blue" | "amber" | "red" | "green"
 { label, valor, sufijo, sub, color }
 ```
 
-### alerta — banner rojo superior
+### alerta
 ```js
 { activa: true/false, titulo, badge, descripcion }
 ```
@@ -124,7 +115,7 @@ export const proyecto = {
 - Jefe Área: Facundo Sarmiento (FCS) — fsarmiento@colmex.mx
 - Logística: Uriel Pérez (UP) — uperez@colmex.mx ext.3266
 
-## Contexto técnico actual (al 17/04/2026)
+## Contexto técnico (al 17/04/2026)
 - 104 APs instalados de 166 · 62 pendientes
 - ISE 3.4 en HA (2 nodos SNS-3815) — BUG CSCwn62873 activo con WS2025
 - 802.1X validado en maqueta: Windows, Linux, teléfonos IP
