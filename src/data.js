@@ -35,6 +35,7 @@ export const tecnologias = [
       { label: "Instalación de APs (109/166)", pct: 66, color: "blue" },
       { label: "Configuración base Meraki", pct: 90, color: "green" },
       { label: "SSIDs migrados / validados (80–90%)", pct: 85, color: "green" },
+      { label: "SSIDs de validación configurados (LAB-VISIT, Test1, wilinkr20)", pct: 100, color: "green" },
       { label: "Pruebas portal cautivo + MAC filtering", pct: 80, color: "green" },
       { label: "SSID pendiente — estudiantes + personal (user/pass + 2do factor)", pct: 20, color: "amber" },
       { label: "Site Survey — análisis final", pct: 70, color: "amber" },
@@ -84,9 +85,13 @@ export const hitosCompletados = [
   { texto: "Preconfiguración 9500X para migración capa 2", fecha: "22/04", estado: "done" },
   { texto: "Pruebas SSIDs — portal cautivo + MAC filtering", fecha: "23/04", estado: "done" },
   { texto: "3 SSIDs migrados a nueva infraestructura", fecha: "23/04", estado: "done" },
+  { texto: "SSID LAB-VISIT — portal de Invitados en Cisco ISE + Meraki", fecha: "23/04", estado: "done" },
+  { texto: "SSID Test1 — autenticación MAB + asignación dinámica de VLAN", fecha: "23/04", estado: "done" },
+  { texto: "SSID wilinkr20 — autenticación 802.1X + MAB", fecha: "23/04", estado: "done" },
   { texto: "Memoria Técnica ISE/SNA v1 liberada al cliente", fecha: "23/04", estado: "done" },
   { texto: "Revisión SOW y ruta AD definida con fabricante", fecha: "24/04", estado: "done" },
   { texto: "Avance WLAN 80–90% validado con cliente", fecha: "24/04", estado: "done" },
+  { texto: "Propuesta comercial — entregada (José Bello)", fecha: "24/04", estado: "done" },
   { texto: "Documentos FO-SAD (cartas, plan, fichas)", fecha: "Cerrado", estado: "done" },
 ];
 
@@ -105,7 +110,6 @@ export const hitosPendientes = [
   { texto: "Migración SSIDs faltantes (MAC filter) — espera lista MACs del cliente", fecha: "Pendiente cliente", estado: "pend" },
   { texto: "Nuevos SSIDs CEN — esperando nombres + VLANs onboarding (COLMEX)", fecha: "Pendiente cliente", estado: "pend" },
   { texto: "Certificado web admin + servidor respaldo cCenter", fecha: "Pendiente cliente", estado: "pend" },
-  { texto: "Propuesta comercial — responsable José Bello", fecha: "Sin estatus", estado: "pend" },
   { texto: "ISE integrado con red inalámbrica Meraki", fecha: "Pendiente", estado: "pend" },
   { texto: "Deploy SNA — Secure Network Analytics", fecha: "Pendiente", estado: "pend" },
 ];
@@ -155,6 +159,7 @@ export const comunicaciones = [
   { tipo: "hecho", quien: "Deploy Catalyst Center + integración switches", que: "Setup cCenter, licenciamiento, integración 9500X del proyecto y stacks COLMEX. Preconfiguración 9500X para migración capa 2.", cuando: "22/04 ✓" },
   { tipo: "hecho", quien: "Pruebas WLAN — Víctor Quintanar", que: "Pruebas SSIDs con portal cautivo (OK) y MAC filtering en SSIDs faltantes.", cuando: "23/04 ✓" },
   { tipo: "hecho", quien: "Memoria Técnica ISE/SNA v1 liberada", que: "Primer documento entregado al cliente para revisión. Apartado NRFU breve — se anexarán pruebas conforme cliente las solicite.", cuando: "23/04 ✓" },
+  { tipo: "hecho", quien: "Víctor Quintanar — resumen actividades en sitio 23/04", que: "Correo a COLMEX: configuración de 3 SSIDs — (1) LAB-VISIT portal Invitados en ISE+Meraki, (2) Test1 con MAB + VLAN dinámica, (3) wilinkr20 con 802.1X + MAB.", cuando: "24/04 ✓" },
   { tipo: "pendiente", quien: "COLMEX — DC Windows Server 2022", que: "Habilitar el servidor DC en WS2022 a más tardar el viernes 01/05 para integración con ISE. Si no, se activa LDAP como plan B.", cuando: "≤ 01/05" },
   { tipo: "pendiente", quien: "Víctor Quintanar — 1ra visita en sitio", que: "Siguiente semana: recabar evidencias, completar Memoria Técnica, aplicar hardening de políticas y protocolos en ISE.", cuando: "Sem 28/04" },
   { tipo: "pendiente", quien: "Víctor Quintanar — 2da visita en sitio", que: "Integración AD (o LDAP) + configuración del último SSID pendiente + pruebas NRFU.", cuando: "Sem 05/05" },
@@ -162,7 +167,7 @@ export const comunicaciones = [
   { tipo: "pendiente", quien: "COLMEX → CEN Systems", que: "Compartir nombres de los nuevos SSIDs diseñados por CEN y definir VLANs de onboarding (configuración VLANs en LAN es responsabilidad COLMEX).", cuando: "Pendiente cliente" },
   { tipo: "pendiente", quien: "COLMEX — decisión cCenter", que: "Definir si se usará certificado para web admin y el servidor de respaldo de Catalyst Center.", cuando: "Pendiente cliente" },
   { tipo: "pendiente", quien: "COLMEX — SFPs para capa 3", que: "Adquirir 5 SFPs de 1 GB adicionales para completar la migración de capa 3 en los firewalls.", cuando: "Pendiente cliente" },
-  { tipo: "pendiente", quien: "José Bello — propuesta comercial", que: "Estatus de la propuesta pendiente de actualizar. Sin avance reportado.", cuando: "Por definir" },
+  { tipo: "hecho", quien: "José Bello — propuesta comercial", que: "Propuesta comercial concluida y entregada.", cuando: "24/04 ✓" },
   { tipo: "pendiente", quien: "Escalación Cisco TAC — BUG CSCwn62873", que: "Seguimiento caso TAC para obtener resolución puntual del fabricante, independiente de los workarounds.", cuando: "En curso" },
   { tipo: "pendiente", quien: "Próxima sesión semanal de seguimiento", que: "Miércoles 29/04/2026 · 11:00 hrs · WebEx. Agenda: resultado migración capa 2, fecha DC 2022, resultados 1ra visita VQ, SFPs capa 3.", cuando: "29/04" },
 ];
