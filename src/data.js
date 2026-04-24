@@ -9,23 +9,23 @@ export const proyecto = {
   contrato: "COLMEX-LPN-ADQ-11-25",
   pm: "Alan Cerón Cardonne",
   email: "aceron@censys.com.mx",
-  actualizado: "23 de abril de 2026",
-  sesion: "Sesión 22/04/2026 · Avances WLAN / LAN / Catalyst Center",
+  actualizado: "24 de abril de 2026",
+  sesion: "Sesión 24/04/2026 · Revisión SOW y seguimiento",
 };
 
 export const kpis = [
   { label: "APs instalados", valor: "109", sufijo: "/ 166", sub: "66% completado · 57 APs pendientes · 4 alarmados por cableado", color: "blue" },
-  { label: "ISE — red cableada", valor: "85%", sub: "802.1X validado · 3 WA identificados para integración AD", color: "amber" },
+  { label: "SSIDs / WLAN", valor: "85%", sub: "80–90% avanzado · solo 1 SSID pendiente (estudiantes + personal)", color: "amber" },
   { label: "Riesgos activos", valor: "3", sub: "1 crítico (AD) · 2 medios (SFPs, Site Survey)", color: "red" },
-  { label: "Avance general", valor: "62%", sub: "cCenter desplegado · 9500X preconfigurados · MT v1 liberada", color: "amber" },
+  { label: "Avance general", valor: "64%", sub: "cCenter desplegado · ruta AD definida · pendiente fecha compromiso DC 2022", color: "amber" },
 ];
 
 export const alerta = {
   activa: true,
   titulo: "BUG CSCwn62873: ISE 3.4 no integra con Active Directory en Windows Server 2025",
-  badge: "3 WA identificados",
+  badge: "Ruta definida · Fecha compromiso ≤ vie 01/05",
   descripcion:
-    'Join de ISE 3.4 contra DC con WS2025 genera error "acceso denegado". Se identificaron 3 workarounds a evaluar: (1) desplegar DC secundario en Windows Server 2019 o 2022, (2) ejecutar el WA del boletín Cisco, (3) actualizar ISE a versión superior con el último parche (no recomendada por fabricante, sin garantía). Caso TAC activo. Responsable: Víctor Quintanar / Cisco TAC.',
+    'Tras revisión con fabricante, se priorizan 2 rutas: (1) desplegar DC adicional con Windows Server 2022 — ruta preferida, COLMEX se compromete a tener fecha de habilitación a más tardar el viernes 01/05/2026; (2) integración vía LDAP (sin AD join) — ruta alterna, pero se pierde monitoreo constante y atributos específicos de AD. La 3ra alternativa (upgrade ISE) queda descartada por falta de garantía del fabricante. Caso TAC sigue en seguimiento. Resp: Víctor Quintanar / Facundo Sarmiento.',
 };
 
 export const tecnologias = [
@@ -34,8 +34,9 @@ export const tecnologias = [
     barras: [
       { label: "Instalación de APs (109/166)", pct: 66, color: "blue" },
       { label: "Configuración base Meraki", pct: 90, color: "green" },
-      { label: "SSIDs migrados (3 completados)", pct: 40, color: "amber" },
+      { label: "SSIDs migrados / validados (80–90%)", pct: 85, color: "green" },
       { label: "Pruebas portal cautivo + MAC filtering", pct: 80, color: "green" },
+      { label: "SSID pendiente — estudiantes + personal (user/pass + 2do factor)", pct: 20, color: "amber" },
       { label: "Site Survey — análisis final", pct: 70, color: "amber" },
       { label: "Nuevos SSIDs CEN (falta VLANs COLMEX)", pct: 10, color: "gray" },
       { label: "6 GHz / WPA3 / Transition Mode", pct: 10, color: "gray" },
@@ -47,7 +48,9 @@ export const tecnologias = [
       { label: "ISE hardware + alta disponibilidad", pct: 100, color: "green" },
       { label: "Certificados + portal de prueba", pct: 90, color: "green" },
       { label: "802.1X cableado en maqueta", pct: 85, color: "amber" },
-      { label: "Integración Active Directory (3 WA en evaluación)", pct: 30, color: "red" },
+      { label: "Ruta integración AD definida (DC 2022 o LDAP)", pct: 50, color: "amber" },
+      { label: "Integración productiva AD/LDAP", pct: 0, color: "red" },
+      { label: "Hardening de políticas / protocolos (pend 1ra visita)", pct: 0, color: "gray" },
       { label: "ISE + WLAN Meraki (MAC / Portal)", pct: 20, color: "amber" },
       { label: "SNA — Secure Network Analytics", pct: 0, color: "gray" },
     ],
@@ -82,13 +85,19 @@ export const hitosCompletados = [
   { texto: "Pruebas SSIDs — portal cautivo + MAC filtering", fecha: "23/04", estado: "done" },
   { texto: "3 SSIDs migrados a nueva infraestructura", fecha: "23/04", estado: "done" },
   { texto: "Memoria Técnica ISE/SNA v1 liberada al cliente", fecha: "23/04", estado: "done" },
+  { texto: "Revisión SOW y ruta AD definida con fabricante", fecha: "24/04", estado: "done" },
+  { texto: "Avance WLAN 80–90% validado con cliente", fecha: "24/04", estado: "done" },
   { texto: "Documentos FO-SAD (cartas, plan, fichas)", fecha: "Cerrado", estado: "done" },
 ];
 
 export const hitosPendientes = [
-  { texto: "Integración ISE — Active Directory (3 WA en evaluación)", fecha: "Riesgo", estado: "risk" },
+  { texto: "Integración ISE–AD — COLMEX habilita DC Windows Server 2022", fecha: "≤ Vie 01/05", estado: "risk" },
+  { texto: "Plan B: integración vía LDAP si DC 2022 no está a tiempo", fecha: "≤ 01/05", estado: "pend" },
   { texto: "Migración capa 2 — 9500X", fecha: "Sáb 25/04", estado: "wip" },
   { texto: "Migración capa 3 — bloqueada por 5 SFPs 1 GB faltantes", fecha: "Riesgo", estado: "risk" },
+  { texto: "1ra visita VQ — evidencias + hardening + Memoria Técnica", fecha: "Sem 28/04", estado: "wip" },
+  { texto: "2da visita VQ — integración AD/LDAP + último SSID + NRFU", fecha: "Sem 05/05", estado: "pend" },
+  { texto: "SSID pendiente — estudiantes + personal (user/pass + 2do factor hostname/MAC)", fecha: "Por definir", estado: "wip" },
   { texto: "Site Survey — reporte final", fecha: "Sem 28/04", estado: "wip" },
   { texto: "Memoria Técnica — apartado NRFU (anexando pruebas)", fecha: "En curso", estado: "wip" },
   { texto: "4 APs alarmados por cableado — revisión", fecha: "En curso", estado: "wip" },
@@ -105,10 +114,10 @@ export const hitosPendientes = [
 export const riesgos = [
   {
     nivel: "critico",
-    titulo: "BUG CSCwn62873 — ISE 3.4 + Active Directory en Windows Server 2025",
-    badge: "3 WA identificados",
+    titulo: "BUG CSCwn62873 — Integración ISE 3.4 con Active Directory en WS2025",
+    badge: "Compromiso cliente ≤ 01/05",
     descripcion:
-      "Join de ISE contra DC con WS2025 genera error de acceso denegado. Se evalúan 3 workarounds: (1) DC secundario en WS2019/2022, (2) WA del boletín Cisco, (3) upgrade ISE con último parche (no recomendado, sin garantía). Caso TAC activo. Impacto: bloquea 802.1X productivo y fase WLAN. Resp: VQ / Cisco TAC.",
+      "Tras revisión con Cisco se definen 2 rutas: (1) DC adicional con Windows Server 2022 — ruta preferida, COLMEX se compromete a habilitarlo a más tardar el viernes 01/05/2026; (2) integración por LDAP — alterna, se pierde monitoreo constante y atributos específicos de AD. 3ra alternativa (upgrade ISE) descartada por falta de garantía. Caso TAC continúa. Si no hay DC 2022 a tiempo, se ejecuta plan B (LDAP). Impacto: bloquea 802.1X productivo y fase WLAN final. Resp: VQ / FCS / Cisco TAC.",
   },
   {
     nivel: "medio",
@@ -139,17 +148,23 @@ export const riesgos = [
 
 // tipo: "hecho" | "pendiente"
 export const comunicaciones = [
+  { tipo: "hecho", quien: "Sesión Revisión SOW y seguimiento — Minuta 06", que: "24/04 · WebEx. Revisión con fabricante: 2 rutas para ISE-AD (DC 2022 o LDAP). Avance WLAN 80–90%. Plan de 2 visitas VQ: hardening+evidencias, luego integración+NRFU.", cuando: "24/04 ✓" },
+  { tipo: "hecho", quien: "Facundo Sarmiento (COLMEX) — compromiso DC 2022", que: "Entregará fecha concreta de habilitación de DC con Windows Server 2022. A más tardar viernes 01/05/2026. Si se vence, se activa plan B (LDAP).", cuando: "24/04 ✓" },
+  { tipo: "hecho", quien: "Luis Enrique Yáñez (COLMEX)", que: "Confirma que el avance va bien. ISE aún no productivo — sigue en fase de implementación.", cuando: "24/04 ✓" },
   { tipo: "hecho", quien: "Sesión semanal de seguimiento — Minuta 05", que: "22/04 · 11:00 hrs · WebEx. Avances DNAC, 9500X, WLAN, caso TAC BUG AD (3 WA identificados), Memoria Técnica v1.", cuando: "22/04 ✓" },
   { tipo: "hecho", quien: "Deploy Catalyst Center + integración switches", que: "Setup cCenter, licenciamiento, integración 9500X del proyecto y stacks COLMEX. Preconfiguración 9500X para migración capa 2.", cuando: "22/04 ✓" },
-  { tipo: "hecho", quien: "Pruebas WLAN — Víctor Quintanar", que: "23/04 Pruebas SSIDs con portal cautivo (OK) y MAC filtering en SSIDs faltantes. Retroalimentación detallada a cargo de VQ.", cuando: "23/04 ✓" },
+  { tipo: "hecho", quien: "Pruebas WLAN — Víctor Quintanar", que: "Pruebas SSIDs con portal cautivo (OK) y MAC filtering en SSIDs faltantes.", cuando: "23/04 ✓" },
   { tipo: "hecho", quien: "Memoria Técnica ISE/SNA v1 liberada", que: "Primer documento entregado al cliente para revisión. Apartado NRFU breve — se anexarán pruebas conforme cliente las solicite.", cuando: "23/04 ✓" },
+  { tipo: "pendiente", quien: "COLMEX — DC Windows Server 2022", que: "Habilitar el servidor DC en WS2022 a más tardar el viernes 01/05 para integración con ISE. Si no, se activa LDAP como plan B.", cuando: "≤ 01/05" },
+  { tipo: "pendiente", quien: "Víctor Quintanar — 1ra visita en sitio", que: "Siguiente semana: recabar evidencias, completar Memoria Técnica, aplicar hardening de políticas y protocolos en ISE.", cuando: "Sem 28/04" },
+  { tipo: "pendiente", quien: "Víctor Quintanar — 2da visita en sitio", que: "Integración AD (o LDAP) + configuración del último SSID pendiente + pruebas NRFU.", cuando: "Sem 05/05" },
   { tipo: "pendiente", quien: "COLMEX → Víctor Quintanar", que: "Entregar lista de MAC addresses para cargarlas a la base de datos de ISE y poder migrar los SSIDs restantes por MAC filtering.", cuando: "Pendiente cliente" },
   { tipo: "pendiente", quien: "COLMEX → CEN Systems", que: "Compartir nombres de los nuevos SSIDs diseñados por CEN y definir VLANs de onboarding (configuración VLANs en LAN es responsabilidad COLMEX).", cuando: "Pendiente cliente" },
   { tipo: "pendiente", quien: "COLMEX — decisión cCenter", que: "Definir si se usará certificado para web admin y el servidor de respaldo de Catalyst Center.", cuando: "Pendiente cliente" },
   { tipo: "pendiente", quien: "COLMEX — SFPs para capa 3", que: "Adquirir 5 SFPs de 1 GB adicionales para completar la migración de capa 3 en los firewalls.", cuando: "Pendiente cliente" },
-  { tipo: "pendiente", quien: "José Bello — propuesta comercial", que: "Estatus de la propuesta pendiente de actualizar. Sin avance reportado en la sesión.", cuando: "Por definir" },
-  { tipo: "pendiente", quien: "Escalación Cisco TAC — BUG CSCwn62873", que: "Seguimiento caso TAC para validar cuál de los 3 WA se aplicará en el ambiente productivo del COLMEX.", cuando: "En curso" },
-  { tipo: "pendiente", quien: "Próxima sesión semanal de seguimiento", que: "Miércoles 29/04/2026 · 11:00 hrs · WebEx. Agenda: resultado migración capa 2, definición ruta AD, lista MACs, VLANs onboarding, SFPs capa 3.", cuando: "29/04" },
+  { tipo: "pendiente", quien: "José Bello — propuesta comercial", que: "Estatus de la propuesta pendiente de actualizar. Sin avance reportado.", cuando: "Por definir" },
+  { tipo: "pendiente", quien: "Escalación Cisco TAC — BUG CSCwn62873", que: "Seguimiento caso TAC para obtener resolución puntual del fabricante, independiente de los workarounds.", cuando: "En curso" },
+  { tipo: "pendiente", quien: "Próxima sesión semanal de seguimiento", que: "Miércoles 29/04/2026 · 11:00 hrs · WebEx. Agenda: resultado migración capa 2, fecha DC 2022, resultados 1ra visita VQ, SFPs capa 3.", cuando: "29/04" },
 ];
 
 export const entregables = {
@@ -160,12 +175,12 @@ export const entregables = {
     "Cartas de aceptación FO-SAD-5.4",
     "Catálogo fichas técnicas (12 equipos)",
     "Plan de comunicación FO-SAD-5.6",
-    "Minutas 01–05 generadas",
+    "Minutas 01–06 generadas",
     "Acuerdo de confidencialidad",
     "Memoria Técnica ISE/SNA v1 (liberada al cliente)",
   ],
   enProceso: [
-    "Memoria Técnica — apartado NRFU (anexando pruebas)",
+    "Memoria Técnica — apartado NRFU + hardening (1ra visita VQ)",
     "Site Survey — reporte final",
     "Reporte mensual de tickets",
   ],
