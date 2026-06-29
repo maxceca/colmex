@@ -9,15 +9,15 @@ export const proyecto = {
   contrato: "COLMEX-LPN-ADQ-11-25",
   pm: "Alan Cerón Cardonne",
   email: "aceron@censys.com.mx",
-  actualizado: "11 de mayo de 2026",
-  sesion: "Sesión 08/05/2026 · Plan despliegue SNA + cronograma mayo–junio",
+  actualizado: "18 de mayo de 2026",
+  sesion: "Sesión 15/05/2026 · NetFlow 9500X — limitantes detectadas para SNA",
 };
 
 export const kpis = [
   { label: "APs instalados", valor: "109", sufijo: "/ 166", sub: "66% completado · 57 APs pendientes · 4 alarmados por cableado", color: "blue" },
   { label: "Migración capa 3", valor: "29–30 May", sub: "Ventana de mantenimiento programada · bloqueante: 5 SFPs 1 GB", color: "amber" },
-  { label: "Riesgos activos", valor: "3", sub: "1 crítico (SFPs capa 3) · 2 medios (BUG AD, Site Survey)", color: "red" },
-  { label: "Avance general", valor: "72%", sub: "Plan SNA definido · cronograma operativo mayo–junio acordado", color: "amber" },
+  { label: "Riesgos activos", valor: "4", sub: "2 críticos (SFPs capa 3, NetFlow 9500X) · 2 medios (BUG AD, Site Survey)", color: "red" },
+  { label: "Avance general", valor: "72%", sub: "Limitante NetFlow 9500X · arquitectura SNA en replanteo", color: "amber" },
 ];
 
 export const alerta = {
@@ -62,12 +62,23 @@ export const tecnologias = [
     titulo: "SNA — Secure Network Analytics (Stealthwatch 7.6.0)",
     barras: [
       { label: "Plan despliegue + requisitos compartidos (08/05)", pct: 100, color: "green" },
-      { label: "SMC — Cisco SNA Virtual Manager (8 vCPU / 42 GB / 300 GB)", pct: 0, color: "gray" },
-      { label: "Flow Collector NetFlow (8 vCPU / 64 GB / 1.8 TB)", pct: 0, color: "gray" },
-      { label: "Flow Sensor (6 vCPU / 10 GB / 100 GB · 2 NICs)", pct: 0, color: "gray" },
-      { label: "Infraestructura VMware 7.0/8.0 + segmento de red dedicado", pct: 0, color: "amber" },
-      { label: "Conectividad DNS / NTP / TCP 443 a internet", pct: 0, color: "amber" },
-      { label: "Puertos AD (TCP 389) + ISE (TCP 443 / 8910 bidireccional)", pct: 0, color: "amber" },
+      { label: "Sesión técnica integración Flow Sensor (12/05)", pct: 100, color: "green" },
+      { label: "NetFlow 9500X — limitantes detectadas (replanteo arquitectura)", pct: 100, color: "red" },
+      { label: "Norte–Sur: NetFlow en 9500 puertos firewall (vía válida)", pct: 10, color: "amber" },
+      { label: "Este–Oeste: opción cCenter+SNA+ETA (req. DNA Advantage)", pct: 0, color: "gray" },
+      { label: "Este–Oeste: opción manual NetFlow en 9300 (puertos troncales)", pct: 0, color: "gray" },
+      { label: "SMC — Cisco SNA Virtual Manager (8 vCPU / 42 GB / 300 GB)", pct: 30, color: "amber" },
+      { label: "Flow Collector NetFlow (8 vCPU / 64 GB / 1.8 TB)", pct: 30, color: "amber" },
+      { label: "Flow Sensor (6 vCPU / 10 GB / 100 GB · 2 NICs)", pct: 40, color: "amber" },
+      { label: "Configurar VLAN nueva sin tráfico de producción en Core", pct: 0, color: "amber" },
+      { label: "Propagar VLAN sobre trunk Core ↔ hipervisor", pct: 0, color: "amber" },
+      { label: "Port group en hipervisor (vSwitch) asociado a VLAN nueva", pct: 0, color: "amber" },
+      { label: "Reconfigurar adaptador de red del Flow Sensor (apagar/editar/encender)", pct: 0, color: "amber" },
+      { label: "Validar tráfico espejeado recibido en Flow Sensor", pct: 0, color: "gray" },
+      { label: "Configurar SVIs como orígenes VSPAN en Core → SMC", pct: 0, color: "gray" },
+      { label: "Infraestructura VMware 7.0/8.0 + segmento de red dedicado", pct: 50, color: "amber" },
+      { label: "Conectividad DNS / NTP / TCP 443 a internet", pct: 50, color: "amber" },
+      { label: "Puertos AD (TCP 389) + ISE (TCP 443 / 8910 bidireccional)", pct: 50, color: "amber" },
     ],
   },
   {
@@ -121,11 +132,16 @@ export const hitosCompletados = [
   { texto: "Minuta 07 enviada al cliente", fecha: "29/04", estado: "done" },
   { texto: "Plan despliegue SNA — requisitos compartidos al cliente", fecha: "08/05", estado: "done" },
   { texto: "Cronograma operativo mayo–junio acordado con COLMEX", fecha: "08/05", estado: "done" },
+  { texto: "Sesión técnica SNA — pasos de integración Flow Sensor + VSPAN", fecha: "12/05", estado: "done" },
+  { texto: "Análisis NetFlow 9500X — limitantes documentadas (Cisco docs)", fecha: "15/05", estado: "done" },
   { texto: "Documentos FO-SAD (cartas, plan, fichas)", fecha: "Cerrado", estado: "done" },
 ];
 
 export const hitosPendientes = [
   { texto: "5 SFPs 1 Gbps compatibles 9500X-64 — bloqueante para migración capa 3", fecha: "≤ 29 May", estado: "risk" },
+  { texto: "NetFlow 9500X — definir arquitectura SNA (N-S firewall vs E-O 9300)", fecha: "Mié próx", estado: "risk" },
+  { texto: "Decisión: ¿involucrar a Cisco para analizar limitantes 9500X?", fecha: "Por definir", estado: "pend" },
+  { texto: "Sesión revisión NetFlow/SNA — propuesta miércoles 10–12 PM", fecha: "Mié próx", estado: "pend" },
   { texto: "Reunión preparatoria migración capa 3 9500X", fecha: "21 May", estado: "pend" },
   { texto: "Ventana de mantenimiento — migración capa 3 9500X", fecha: "29–30 May", estado: "pend" },
   { texto: "Documentación WLAN — entrega al cliente", fecha: "22 May", estado: "wip" },
@@ -136,6 +152,11 @@ export const hitosPendientes = [
   { texto: "SNA — VMware 7.0/8.0 + segmento de red dedicado para 3 VMs", fecha: "Pre-deploy", estado: "pend" },
   { texto: "SNA — Conectividad DNS/NTP/TCP 443 + puertos AD/ISE", fecha: "Pre-deploy", estado: "pend" },
   { texto: "SNA — Despliegue de las 3 VMs (SMC + Flow Collector + Flow Sensor)", fecha: "Por programar", estado: "pend" },
+  { texto: "SNA Flow Sensor — VLAN nueva sin tráfico de producción en Core", fecha: "Próximos días", estado: "wip" },
+  { texto: "SNA Flow Sensor — propagar VLAN en trunk Core ↔ hipervisor", fecha: "Próximos días", estado: "wip" },
+  { texto: "SNA Flow Sensor — port group en hipervisor + adaptador VM", fecha: "Próximos días", estado: "wip" },
+  { texto: "SNA Flow Sensor — validar tráfico espejeado recibido", fecha: "Tras port group", estado: "pend" },
+  { texto: "SNA — configurar SVIs como orígenes VSPAN en Core (visibilidad SMC)", fecha: "Tras Flow Sensor", estado: "pend" },
   { texto: "DC Windows Server 2022 — verificación post entrega + AD join productivo", fecha: "En verificación", estado: "wip" },
   { texto: "SSID estudiantes/profesores — revisión EAP chaining por COLMEX", fecha: "En revisión", estado: "wip" },
   { texto: "Site Survey — reporte final consolidado (recordatorio cliente)", fecha: "Atrasado", estado: "risk" },
@@ -149,6 +170,13 @@ export const hitosPendientes = [
 
 // nivel: "critico" | "medio" | "resuelto"
 export const riesgos = [
+  {
+    nivel: "critico",
+    titulo: "NetFlow 9500X sin flexibilidad — replanteo de arquitectura SNA",
+    badge: "NUEVO 15/05",
+    descripcion:
+      "Al configurar NetFlow para enviar tráfico a SNA se detectaron limitantes del 9500X (confirmadas en doc Cisco): solo configurable en interfaz ingress, solo con sampler (muestreo estadístico, no exacto), no soporta monitor en SVI ni interfaces físicas, NetFlow solo por software, no MPLS/VXLAN, una sola tasa de sampler. El hardware no da la flexibilidad que busca el colegio en esa capa. Plan: (1) Norte–Sur con NetFlow en 9500 puertos del firewall (vía válida); (2) Este–Oeste vía cCenter+SNA con ETA (requiere licencia DNA Advantage); (3) alternativa manual NetFlow en 9300 (puertos troncales). Pendiente: sesión revisión miércoles 10–12 PM y decidir si se involucra a Cisco. Resp: VQ / Andrés / COLMEX.",
+  },
   {
     nivel: "critico",
     titulo: "5 SFPs 1 Gbps 9500X-64 — bloqueante para migración capa 3 (29–30 May)",
@@ -188,6 +216,9 @@ export const riesgos = [
 export const comunicaciones = [
   { tipo: "hecho", quien: "Sesión 08/05 — Plan SNA + cronograma mayo/junio", que: "Viernes 08/05 · WebEx. Plan operativo: 18–21 may doc WLAN, 21 may reunión capa 3, 22 may entrega WLAN + overview Meraki, 25–29 may doc DNAC, 29–30 may ventana migración capa 3, 1 jun entrega DNAC, 1–4 jun overview DNAC.", cuando: "08/05 ✓" },
   { tipo: "hecho", quien: "Víctor Quintanar — requisitos de despliegue SNA", que: "Compartió guía completa de despliegue SNA 7.6.0 (Stealthwatch): 3 VMs (SMC 8c/42GB/300GB, Flow Collector 8c/64GB/1.8TB, Flow Sensor 6c/10GB/100GB), VMware 7/8, mismo segmento de red, sin vMotion/snapshots, conectividad DNS/NTP/TCP443, puertos AD TCP 389 + ISE TCP 443/8910 bidireccional. Link guía Cisco incluido.", cuando: "08/05 ✓" },
+  { tipo: "hecho", quien: "Víctor Quintanar → Uriel Pérez (COLMEX) — pasos integración Flow Sensor", que: "Tras sesión técnica de hoy: (1) crear VLAN nueva sin tráfico de producción en Core, (2) propagarla en trunk Core↔hipervisor, (3) port group en hipervisor asociado a la VLAN, (4) apagar VM Flow Sensor desde GUI, (5) reasignar adaptador al port group, (6) encender y validar tráfico espejeado. Una vez listos los pasos, el SMC debería mostrar tráfico proveniente de las SVIs configuradas como orígenes VSPAN en el Core.", cuando: "12/05 ✓" },
+  { tipo: "hecho", quien: "Sesión de seguimiento a proyecto — 15/05", que: "Seguimiento de SNA: configuración de NetFlow en el Core, Flow Collector y Flow Sensor (este último como herramienta complementaria/opcional). Se discutió visibilidad de servidores y usuarios vía análisis de tráfico y relevancia de Smart Account / NCC para el licenciamiento de SNA. Queda retro pendiente de Víctor respecto a Active Directory.", cuando: "15/05 ✓" },
+  { tipo: "hecho", quien: "Víctor Quintanar → COLMEX — limitantes NetFlow 9500X", que: "Resumen post-sesión: NetFlow en 9500X solo soporta sampler, solo interfaz ingress, no SVI ni interfaces físicas. Confirmado en doc Cisco (software-only, sin MPLS/VXLAN, una tasa de sampler). Propuesta: N-S con NetFlow en puertos del firewall en 9500; E-O vía cCenter+SNA+ETA (req. DNA Advantage) o manual en 9300. Propone sesión de revisión el próximo miércoles 10–12 PM y consultar si involucrar al fabricante.", cuando: "15/05 ✓" },
   { tipo: "hecho", quien: "Cisco TAC (Sherlock / Harvi Arias) — caso BUG CSCwn62873", que: "Confirma WA complementario y obligatorio. ISE 3.4 P5 ya cumple. Única vía técnica: SAM RPC en DC WS2025 (descartado por COLMEX) o usar DC WS2022.", cuando: "24/04 ✓" },
   { tipo: "hecho", quien: "Migración capa 2 — 9500X completada", que: "Migración ejecutada exitosamente el sábado 25/04. MT, Hardening, NRFU 9500X y R-NRFU Meraki listos.", cuando: "25/04 ✓" },
   { tipo: "hecho", quien: "Alan Cerón → COLMEX (4 documentos + Minuta 07)", que: "Enviados al cliente: MT 9500X + Hardening + NRFU 9500X + R-NRFU Meraki + Minuta 07.", cuando: "29/04 ✓" },
@@ -196,6 +227,7 @@ export const comunicaciones = [
   { tipo: "pendiente", quien: "Reunión preparatoria migración capa 3", que: "Sesión específica para revisar la migración total del Catalyst 9500, particularmente capa 3. La invitación se enviará posteriormente.", cuando: "21 May" },
   { tipo: "pendiente", quien: "Sesión Webex — aclaración despliegue SNA (opcional)", que: "Víctor ofreció agendar sesión de aclaración previa al despliegue SNA si COLMEX lo considera adecuado.", cuando: "Por agendar" },
   { tipo: "pendiente", quien: "COLMEX — preparación infra SNA", que: "Provisionar VMware 7.0/8.0, segmento de red dedicado para 3 VMs, conectividad DNS/NTP/internet TCP 443, apertura de puertos AD/ISE.", cuando: "Pre-deploy" },
+  { tipo: "pendiente", quien: "Uriel Pérez (COLMEX) — adecuaciones Flow Sensor SNA", que: "Ejecutar los 6 pasos compartidos por Víctor: VLAN nueva en Core, propagación trunk, port group en hipervisor, reconfigurar adaptador VM Flow Sensor (apagar/editar/encender) y validar tráfico espejeado. Configurar SVIs como orígenes VSPAN del lado del Core.", cuando: "Próximos días" },
   { tipo: "pendiente", quien: "Documentación WLAN — entrega", que: "Trabajo del 18 al 21 de mayo. Entrega del documento al cliente el 22 de mayo.", cuando: "22 May" },
   { tipo: "pendiente", quien: "Overview Meraki — sesión con COLMEX", que: "Sesión de overview de la plataforma Meraki.", cuando: "22 May" },
   { tipo: "pendiente", quien: "Documentación DNAC — entrega", que: "Trabajo del 25 al 29 de mayo. Entrega el 1 de junio.", cuando: "1 Jun" },

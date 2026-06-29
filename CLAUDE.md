@@ -10,6 +10,10 @@ Contrato: COLMEX-LPN-ADQ-11-25. PM: Alan Cerón Cardonne.
 Todos los cambios de contenido van ahí. Nunca edites componentes React
 (`App.jsx`, `ui.jsx`) a menos que se pida explícitamente un cambio de UI.
 
+**Siempre actualiza `proyecto.actualizado` a la fecha de hoy** cuando hagas
+cualquier cambio a `src/data.js` (formato: `"DD de [mes] de YYYY"`). Esa
+fecha se muestra en la esquina superior derecha del dashboard.
+
 ## Flujo completo de trabajo
 
 Cuando Alan diga "actualiza el dashboard" o "publica", sigue estos pasos:
